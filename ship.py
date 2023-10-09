@@ -1,0 +1,71 @@
+import pygame
+from pygame.sprite import Sprite
+
+class Ship(Sprite):
+
+    def __init__(self, ai_settings, screen):
+        """初始化飞船并设置其初始位置"""
+        super().__init__()
+        self.screen = screen
+        self.ai_settings = ai_settings
+
+        # 加载飞船图像并获取其外接矩形
+        self.image = pygame.image.load('.\\images\\ship1.png')
+        self.rect = self.image.get_rect()
+        self.screen_rect = screen.get_rect()
+
+        # 将每艘新飞船放在屏幕底部中央
+        self.rect.centerx = self.screen_rect.centerx
+        self.rect.bottom = self.screen_rect.bottom
+
+        # 在飞船的属性中存储浮点数值
+        self.centerx = float(self.rect.centerx)
+        self.bottom = float(self.rect.bottom)
+
+        # 移动标志
+        self.moving_right = False
+        self.moving_left = False
+        self.moving_up = False
+        self.moving_down = False
+
+        # 设置飞船的速度系数
+        self.speed_accelerate = 1
+
+    def check_ship_position(self):
+        """判断飞船的位置，用于飞行限位"""
+        if self.centerx < 0:
+            self.centerx = 0
+        elif self.centerx > self.screen_rect.right:
+            self.centerx = self.screen_rect.right
+        if self.bottom > self.screen_rect.bottom:
+            self.bottom = self.screen_rect.bottom
+        elif self.bottom <  (2/3) * self.screen_rect.bottom:
+            self.bottom = (2/3) * self.screen_rect.bottom
+
+    def accelerate(slef):
+        self.speed_accelerate += 1
+
+    def update(self):
+        """根据移动标志调整飞船的位置"""
+        # 更新飞船的center和bottom值，而非rect
+        if self.moving_right: # 飞船对象的坐标值类型为int，若飞船移动的不长设置为浮点数，可能导致飞船无法向左或上移动
+            self.centerx += self.ai_settings.ship_speed_factor * self.speed_accelerate
+        if self.moving_left:
+            self.centerx -= self.ai_settings.ship_speed_factor * self.speed_accelerate
+        if self.moving_up:
+            self.bottom -= self.ai_settings.ship_speed_factor * self.speed_accelerate
+        if self.moving_down:
+            self.bottom += self.ai_settings.ship_speed_factor * self.speed_accelerate
+
+        # 根据self.center更新rect对象
+        self.rect.centerx = self.centerx
+        self.rect.bottom = self.bottom
+
+    def blitme(self):
+        """在指定位置绘制飞船"""
+        self.screen.blit(self.image, self.rect)
+
+    def center_ship(self):
+        """让飞船在屏幕上居中"""
+        self.center = self.screen_rect.centerx
+        self.bottom = self.screen_rect.bottom
