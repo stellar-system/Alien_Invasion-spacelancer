@@ -10,13 +10,19 @@ from game_stats import GameStats
 from ship import Ship
 import game_functions as gf 
 
+import ctypes
+
 
 def run_game():
     # 初始化游戏并创建一个屏幕对象
     pygame.init()
     ai_settings = Settings()
+    # screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height), pygame.NOFRAME)
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
+ 
     pygame.display.set_caption("Alien Invasion")
+    icon_image = pygame.image.load('.\\images\\bullet5.png')
+    pygame.display.set_icon(icon_image)
 
     # 创建Play按钮
     play_button = Button(ai_settings, screen, "Play")
@@ -27,6 +33,12 @@ def run_game():
 
     # 设置游戏的背景色
     bg_color = (230, 230, 230)
+    # 加载背景图像
+    background1 = pygame.image.load('.\\images\\background_space1.png')
+    background2 = pygame.image.load('.\\images\\background_space2.png')
+    background_y = 0
+    # 设置背景滚动速度
+    scroll_speed = 0.5
 
     # 放置一艘飞船、一个子弹编组和一个外星人编组
     ship = Ship(ai_settings, screen)
@@ -53,9 +65,9 @@ def run_game():
             gf.update_aliens(ai_settings, screen, stats, sb, ship, aliens, bullets)
 
         # 每次循环时都重绘屏幕
-        gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)
+        background_y = gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button, background1, background2, background_y, scroll_speed)
 
-        # 将游戏帧率锁定在300
-        clock.tick(300)
+        # 将游戏帧率锁定在100
+        clock.tick(100)
 
 run_game()

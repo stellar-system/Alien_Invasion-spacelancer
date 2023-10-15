@@ -10,7 +10,7 @@ class Ship(Sprite):
         self.ai_settings = ai_settings
 
         # 加载飞船图像并获取其外接矩形
-        self.image = pygame.image.load('.\\images\\plane0\\plane0_03.png')
+        self.image = pygame.image.load('.\\images\\plane2\\plane2_03.png')
         self.image = pygame.transform.scale(self.image, (64,64))
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
@@ -50,11 +50,11 @@ class Ship(Sprite):
         """根据移动标志调整飞船的位置"""
         # 更新飞船的center和bottom值，而非rect
         if self.moving_right: # 飞船对象的坐标值类型为int，若飞船移动的不长设置为浮点数，可能导致飞船无法向左或上移动
-            self.image = pygame.image.load('.\\images\\plane0\\plane0_04.png')
+            self.image = pygame.image.load('.\\images\\plane2\\plane2_04.png')
             self.image = pygame.transform.scale(self.image, (64,64))
             self.centerx += self.ai_settings.ship_speed_factor * self.speed_accelerate
         elif self.moving_left:
-            self.image = pygame.image.load('.\\images\\plane0\\plane0_02.png')
+            self.image = pygame.image.load('.\\images\\plane2\\plane2_02.png')
             self.image = pygame.transform.scale(self.image, (64,64))
             self.centerx -= self.ai_settings.ship_speed_factor * self.speed_accelerate
         elif self.moving_up:
@@ -62,7 +62,7 @@ class Ship(Sprite):
         elif self.moving_down:
             self.bottom += self.ai_settings.ship_speed_factor * self.speed_accelerate
         else:
-            self.image = pygame.image.load('.\\images\\plane0\\plane0_03.png')
+            self.image = pygame.image.load('.\\images\\plane2\\plane2_03.png')
             self.image = pygame.transform.scale(self.image, (64,64))
         
 

@@ -88,10 +88,21 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens,
     if button_clicked and not stats.game_active :
         game_begin(ai_settings, sb, stats, aliens, bullets, screen, ship)
             
-def update_screen(ai_settinfs, screen, stats, sb, ship, aliens, bullets, play_button):
+def update_screen(ai_settinfs, screen, stats, sb, ship, aliens, bullets, play_button, background1, background2, background_y, scroll_speed):
     """更新屏幕上的图像，并切换到新屏幕"""
     # 每次循环时都重绘屏幕
-    screen.fill(ai_settinfs.bg_color)
+    # screen.fill(ai_settinfs.bg_color)
+
+    # 绘制背景图像
+    screen.blit(background1, (0, background_y))
+    screen.blit(background2, (0, background_y-800))
+    
+    # 逐渐向下移动背景图像的位置
+    background_y += scroll_speed
+    
+    # 当背景图像完全移出屏幕时，重置位置
+    if background_y >= screen.get_height():
+        background_y = 0
 
     # 在飞船和外星人后面重绘所有子弹
     for bullet in bullets.sprites():
@@ -109,6 +120,8 @@ def update_screen(ai_settinfs, screen, stats, sb, ship, aliens, bullets, play_bu
 
     # 让最近绘制的屏幕可见
     pygame.display.flip()
+
+    return background_y
 
 def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """更新子弹的位置，并删除已经消失的子弹"""
@@ -136,7 +149,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
 
     if len(aliens) == 0:
         # 删除现有的子弹,加快游戏节奏，并创建一群新的外星人
-        bullets.empty()
+        # bullets.empty()
         ai_settings.increase_speed()
 
         # 提高等级
@@ -173,6 +186,8 @@ def create_fleet(ai_settings, screen, ship, aliens):
     alien = Alien(ai_settings, screen)
     number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
     number_rows = get_number_rows(ai_settings, ship.rect.height, alien.rect.height)
+    if number_rows >= 5:
+        number_rows = 4
 
     # 创建外星人群
     for row_number in range(number_rows):
