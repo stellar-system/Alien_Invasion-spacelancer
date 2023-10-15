@@ -55,7 +55,7 @@ def run_game():
         # 每次循环时都重绘屏幕
         gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)
 
-        # 将游戏帧率锁定在60
+        # 将游戏帧率锁定在300
         clock.tick(300)
 
 run_game()

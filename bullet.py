@@ -8,7 +8,8 @@ class Bullet(Sprite):
         """在飞船所处位置创建一个子弹对象"""
         super().__init__()
         self.screen = screen
-        self.image = pygame.image.load('.\\images\\black_bullet.png')
+        self.image = pygame.image.load('.\\images\\bullet_1.png')
+        self.image = pygame.transform.scale(self.image, (ai_settings.bullet_width,ai_settings.bullet_height))
 
         # 在（0，0）处创建一个表示子弹的矩形，再设置正确的位置
         self.rect = pygame.Rect(0, 0, ai_settings.bullet_width, ai_settings.bullet_height)
