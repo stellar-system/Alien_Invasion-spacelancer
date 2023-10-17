@@ -49,7 +49,34 @@ class Ship(Sprite):
     def update(self):
         """根据移动标志调整飞船的位置"""
         # 更新飞船的center和bottom值，而非rect
-        if self.moving_right: # 飞船对象的坐标值类型为int，若飞船移动的不长设置为浮点数，可能导致飞船无法向左或上移动
+
+        # #飞船飞行状态栏
+        # print('moving_up:' + str(self.moving_up) + '   '  +  
+        #       'moving_down:' + str(self.moving_down) + '   ' + 
+        #       'moving_left:' + str(self.moving_left) + '   ' + 
+        #       'moving_right:' + str(self.moving_right) + '   '
+        #       ,end='\r')
+        if self.moving_right and self.moving_up: # 右上方飞行
+            self.image = pygame.image.load('.\\images\\plane2\\plane2_04.png')
+            self.image = pygame.transform.scale(self.image, (64,64))
+            self.centerx += self.ai_settings.ship_speed_factor * self.speed_accelerate
+            self.bottom -= self.ai_settings.ship_speed_factor * self.speed_accelerate
+        elif self.moving_right and self.moving_down: # 右下方飞行
+            self.image = pygame.image.load('.\\images\\plane2\\plane2_04.png')
+            self.image = pygame.transform.scale(self.image, (64,64))
+            self.centerx += self.ai_settings.ship_speed_factor * self.speed_accelerate
+            self.bottom += self.ai_settings.ship_speed_factor * self.speed_accelerate
+        elif self.moving_left and self.moving_up: # 左上方飞行
+            self.image = pygame.image.load('.\\images\\plane2\\plane2_03.png')
+            self.image = pygame.transform.scale(self.image, (64,64))
+            self.centerx -= self.ai_settings.ship_speed_factor * self.speed_accelerate
+            self.bottom -= self.ai_settings.ship_speed_factor * self.speed_accelerate
+        elif self.moving_left and self.moving_down: # 左下方飞行
+            self.image = pygame.image.load('.\\images\\plane2\\plane2_03.png')
+            self.image = pygame.transform.scale(self.image, (64,64))
+            self.centerx -= self.ai_settings.ship_speed_factor * self.speed_accelerate
+            self.bottom += self.ai_settings.ship_speed_factor * self.speed_accelerate
+        elif self.moving_right: # 飞船对象的坐标值类型为int，若飞船移动的不长设置为浮点数，可能导致飞船无法向左或上移动
             self.image = pygame.image.load('.\\images\\plane2\\plane2_04.png')
             self.image = pygame.transform.scale(self.image, (64,64))
             self.centerx += self.ai_settings.ship_speed_factor * self.speed_accelerate
