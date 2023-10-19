@@ -1,3 +1,4 @@
+import os
 import sys
 import pygame
 from pygame.sprite import Group
@@ -30,6 +31,17 @@ def run_game():
     # 创建一个用于存储游戏统计信息的实例,并创建记分牌
     stats = GameStats(ai_settings)
     sb = Scoreboard(ai_settings, screen, stats)
+
+    # 获取飞船图像
+    plane_imgs = {}
+    image_path = ".\images\planes"
+    for item in os.listdir(image_path):
+        print(item)
+        plane_path = os.path.join(image_path,item)
+        imgs = [pygame.image.load(os.path.join(plane_path, filename)) for filename in os.listdir(plane_path) if os.path.isfile(os.path.join(plane_path, filename)) and filename.lower().endswith(".png")]
+        plane_imgs[item] = []
+
+
 
     # 设置游戏的背景色
     bg_color = (230, 230, 230)
