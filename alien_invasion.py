@@ -82,4 +82,6 @@ def run_game():
         # 将游戏帧率锁定在100
         clock.tick(100)
 
-run_game()
+        
+if __name__ == '__main__':
+    run_game()

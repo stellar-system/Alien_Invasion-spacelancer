@@ -68,7 +68,7 @@ class Scoreboard():
             self.ships.add(ship)
 
         # 修改为飞船图标x剩余生命数量的格式
-        ship_icon = pygame.image.load('.\\images\\plane2\\plane2_03.png') 
+        ship_icon = pygame.image.load('.\\images\\planes\\plane2\\plane2_03.png') 
         self.ship_icon = pygame.transform.scale(ship_icon, (48, 48))
         self.ship_icon_rect = ship_icon.get_rect()
         self.ship_icon_rect.x = 10
