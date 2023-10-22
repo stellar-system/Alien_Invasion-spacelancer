@@ -5,13 +5,14 @@ from ship import Ship
 class Scoreboard():
     """显示得分信息的类"""
 
-    def __init__(self, ai_settings, screen, stats):
+    def __init__(self, ai_settings, screen, stats, images):
         """初始化显示得分涉及的属性"""
         self.screen = screen
         self.screen_rect = screen.get_rect()
         self.ai_settings = ai_settings
         self.stats = stats
         self.ai_settings.bg_color = (0, 0, 0)
+        self.images = images
 
         # 显示得分信息时使用的字体设置
         self.text_color = (178, 34, 34)
@@ -62,13 +63,13 @@ class Scoreboard():
         """显示还余下多少艘飞船"""
         self.ships = Group()
         for ship_number in range(self.stats.ships_left):
-            ship = Ship(self.ai_settings, self.screen)
+            ship = Ship(self.ai_settings, self.screen, self.images)
             ship.rect.x = 10 + ship_number * ship.rect.width
             ship.rect.y = 10
             self.ships.add(ship)
 
         # 修改为飞船图标x剩余生命数量的格式
-        ship_icon = pygame.image.load('.\\images\\planes\\plane2\\plane2_03.png') 
+        ship_icon = self.images.plane[2]
         self.ship_icon = pygame.transform.scale(ship_icon, (48, 48))
         self.ship_icon_rect = ship_icon.get_rect()
         self.ship_icon_rect.x = 10
