@@ -36,7 +36,6 @@ def run_game():
     plane_imgs = {}
     image_path = ".\images\planes"
     for item in os.listdir(image_path):
-        print(item)
         plane_path = os.path.join(image_path,item)
         imgs = [pygame.image.load(os.path.join(plane_path, filename)) for filename in os.listdir(plane_path) if os.path.isfile(os.path.join(plane_path, filename)) and filename.lower().endswith(".png")]
         plane_imgs[item] = []
@@ -82,6 +81,6 @@ def run_game():
         # 将游戏帧率锁定在100
         clock.tick(100)
 
-        
+
 if __name__ == '__main__':
     run_game()
